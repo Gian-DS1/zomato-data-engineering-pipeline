@@ -18,7 +18,7 @@ This project demonstrates a modern data stack using:
 
 ## Architecture
 
-![Zomato data engineering architecture](docs/zomato-architecture-diagram.svg)
+![Zomato data engineering architecture](docs/architecture.png)
 
 - `ai/` — AI utilities for review sentiment enrichment, retrieval, and SQL generation
 - `airflow/` — orchestration, DAGs, Docker setup, and pipeline tasks
