@@ -1,0 +1,47 @@
+# Python / venv
+venv/
+.venv/
+**/venv/
+**/.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+.ruff_cache/
+
+# Local env and secrets
+.env
+.env.*
+*.env
+*.env.*
+CREDS
+**/.env
+**/.env.*
+**/CREDS
+
+# Build / generated output
+**/logs/
+**/target/
+**/dbt_packages/
+**/.snapshots/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.coverage
+**/*.parquet
+**/*.csv
+**/*.log
+
+# Airflow runtime
+airflow/logs/
+airflow/.env
+
+# AI local files
+ai/.env
+
+# Node / misc
+node_modules/

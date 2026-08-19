@@ -1,0 +1,28 @@
+name: "zomato"
+version: "1.0.0"
+
+profile: "zomato"
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  zomato:
+    +materialized: table
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts
+
+# Snapshot defaults are configured in the project-level snapshots path.
+# If needed, add a snapshots: block here for project-wide defaults.
