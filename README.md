@@ -1,5 +1,8 @@
 # Zomato Data Engineering Pipeline
 
+[![Status](https://img.shields.io/badge/status-portfolio%20project-success)](https://github.com/Gian-DS1/zomato-data-engineering-pipeline)
+[![Demo](https://img.shields.io/badge/demo-local%20workflow-blue)](https://github.com/Gian-DS1/zomato-data-engineering-pipeline)
+
 A full-stack data engineering project built around the Zomato dataset, combining ingestion, transformation, orchestration, AI enrichment, and an analytics layer for restaurant performance and customer insights.
 
 ## Overview
@@ -14,6 +17,8 @@ This project demonstrates a modern data stack using:
 - Streamlit for interactive data exploration and natural-language querying
 
 ## Architecture
+
+![Zomato data engineering architecture](docs/zomato-architecture-diagram.svg)
 
 - `ai/` — AI utilities for review sentiment enrichment, retrieval, and SQL generation
 - `airflow/` — orchestration, DAGs, Docker setup, and pipeline tasks
@@ -51,4 +56,4 @@ Sensitive credentials are intentionally kept local and are ignored by Git throug
 
 ## License
 
-This project is provided for educational and portfolio use.
+This project is licensed under the [MIT License](LICENSE).

@@ -1,0 +1,251 @@
+<svg width="1600" height="920" viewBox="0 0 1600 920" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Zomato Data Engineering Pipeline Diagram</title>
+  <desc id="desc">Architecture flow from source data to S3, bronze, silver, gold and serving layers with AI and orchestration components.</desc>
+
+  <defs>
+    <style>
+      .title { font: 700 20px 'Segoe UI', Arial, sans-serif; fill: #1f2937; }
+      .small { font: 600 12px 'Segoe UI', Arial, sans-serif; fill: #374151; }
+      .body { font: 500 14px 'Segoe UI', Arial, sans-serif; fill: #1f2937; }
+      .label { font: 700 13px 'Segoe UI', Arial, sans-serif; fill: #ffffff; letter-spacing: 1.4px; }
+      .caption { font: 700 11px 'Segoe UI', Arial, sans-serif; fill: #374151; letter-spacing: 1.2px; }
+      .subtitle { font: 600 12px 'Segoe UI', Arial, sans-serif; fill: #4b5563; }
+      .tiny { font: 600 10px 'Segoe UI', Arial, sans-serif; fill: #4b5563; }
+      .dashed { stroke-dasharray: 7 7; stroke: #4a90e2; fill: none; stroke-width: 2; }
+      .arrow { stroke: #2e4057; stroke-width: 2.2; fill: none; marker-end: url(#arrowhead); }
+      .light-arrow { stroke: #4f8edc; stroke-width: 2; fill: none; marker-end: url(#arrowheadLight); }
+      .box { stroke: #cbd5e1; stroke-width: 1.3; }
+      .source { fill: #f5f5f5; }
+      .lake { fill: #1f6fe5; }
+      .bronze { fill: #b76d2b; }
+      .silver { fill: #a7a7a7; }
+      .gold { fill: #d9a62c; }
+      .serve { fill: #f04747; }
+      .ai { fill: #edf4ff; stroke: #6da2ff; }
+      .orchestration { fill: #e8edf3; stroke: #bcc8d4; }
+      .tool { fill: #f8fafc; stroke: #d9e2ec; }
+      .badge { fill: #e7eefb; stroke: #9db5e6; }
+      .step { fill: #ffffff; stroke: #9db5e6; }
+      .dark { fill: #1f2937; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2e4057"/>
+    </marker>
+    <marker id="arrowheadLight" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4f8edc"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="920" fill="#f8fafc"/>
+
+  <!-- TOP FLOW -->
+  <g>
+    <text x="40" y="40" class="caption">SOURCE</text>
+    <rect x="25" y="55" width="185" height="220" rx="12" class="source box"/>
+    <text x="70" y="115" class="title" style="font-size: 42px; fill:#f04d3d;">zomato</text>
+    <text x="70" y="145" class="body">Zomato Dataset</text>
+    <text x="70" y="190" class="subtitle">7 CSV folders</text>
+    <text x="70" y="214" class="subtitle">country, users,</text>
+    <text x="70" y="236" class="subtitle">restaurants, orders,</text>
+    <text x="70" y="258" class="subtitle">order_items, menu,</text>
+    <text x="70" y="280" class="subtitle">reviews</text>
+
+    <path d="M210 165 H270" class="arrow"/>
+
+    <rect x="270" y="55" width="200" height="220" rx="12" class="lake box"/>
+    <text x="310" y="115" class="label" style="font-size: 26px;">LAKE</text>
+    <g transform="translate(360 155)">
+      <path d="M0 30 C0 -18, 52 -18, 52 30 L52 40 C52 56, 0 56, 0 40 Z" fill="none" stroke="#dfeaff" stroke-width="3"/>
+      <path d="M10 28 L10 48 M42 28 L42 48 M0 32 H52" stroke="#dfeaff" stroke-width="3" fill="none"/>
+      <path d="M15 10 C26 0, 36 0, 45 10" stroke="#dfeaff" stroke-width="2" fill="none"/>
+    </g>
+    <text x="310" y="195" class="label" style="font-size: 30px;">Amazon S3</text>
+    <text x="310" y="222" class="label" style="font-size: 14px;">raw</text>
+    <text x="310" y="248" class="label" style="font-size: 14px;">7 CSV folders</text>
+    <text x="310" y="270" class="label" style="font-size: 14px;">(manual upload)</text>
+
+    <path d="M470 165 H530" class="arrow"/>
+
+    <rect x="530" y="55" width="200" height="220" rx="12" class="bronze box"/>
+    <text x="580" y="115" class="label" style="font-size: 25px;">BRONZE</text>
+    <g transform="translate(610 155)">
+      <path d="M22 0 L70 0 L70 52 L22 52 Z" fill="none" stroke="#f7d2b0" stroke-width="2.5"/>
+      <path d="M0 52 L92 52" stroke="#f7d2b0" stroke-width="2.5"/>
+      <path d="M32 0 L32 52 M58 0 L58 52" stroke="#f7d2b0" stroke-width="2.5"/>
+      <path d="M16 22 L76 22" stroke="#f7d2b0" stroke-width="2.5"/>
+    </g>
+    <text x="560" y="195" class="label" style="font-size: 30px;">Snowflake RAW</text>
+    <text x="560" y="222" class="label" style="font-size: 14px;">COPY via</text>
+    <text x="560" y="245" class="label" style="font-size: 14px;">storage integration</text>
+
+    <path d="M730 165 H790" class="arrow"/>
+
+    <rect x="790" y="55" width="200" height="220" rx="12" class="silver box"/>
+    <text x="850" y="115" class="label" style="font-size: 25px;">SILVER</text>
+    <g transform="translate(860 165)">
+      <path d="M38 0 L68 0 L52 30 L22 30 Z" fill="none" stroke="#ffffff" stroke-width="3"/>
+      <path d="M22 30 L52 30 L68 60 L38 60 Z" fill="none" stroke="#ffffff" stroke-width="3"/>
+      <path d="M38 60 L22 30 L0 30 L18 60 Z" fill="none" stroke="#ffffff" stroke-width="3"/>
+    </g>
+    <text x="825" y="195" class="label" style="font-size: 30px;">STAGING (dbt)</text>
+    <text x="825" y="220" class="label" style="font-size: 15px;">clean • type • join</text>
+    <text x="825" y="243" class="label" style="font-size: 15px;">views</text>
+
+    <path d="M990 165 H1050" class="arrow"/>
+
+    <rect x="1050" y="55" width="200" height="220" rx="12" class="gold box"/>
+    <text x="1110" y="115" class="label" style="font-size: 25px;">GOLD</text>
+    <g transform="translate(1120 155)">
+      <path d="M18 0 L72 0 L72 54 L18 54 Z" fill="none" stroke="#fff8d8" stroke-width="3"/>
+      <path d="M28 10 H60 M28 22 H60 M28 34 H60 M28 46 H60" stroke="#fff8d8" stroke-width="2.3" fill="none"/>
+    </g>
+    <text x="1095" y="195" class="label" style="font-size: 30px;">MARTS (dbt)</text>
+    <text x="1095" y="220" class="label" style="font-size: 15px;">dims • incremental</text>
+    <text x="1095" y="243" class="label" style="font-size: 15px;">facts • marts</text>
+
+    <path d="M1250 165 H1310" class="arrow"/>
+
+    <rect x="1310" y="55" width="200" height="220" rx="12" class="serve box"/>
+    <text x="1395" y="115" class="label" style="font-size: 25px;">SERVE</text>
+    <g transform="translate(1375 155)">
+      <path d="M20 28 L20 56 L58 56 L58 28 Z" fill="none" stroke="#fff" stroke-width="3"/>
+      <path d="M22 28 L36 8 L50 28 Z" fill="none" stroke="#fff" stroke-width="3"/>
+      <path d="M30 30 L42 30" stroke="#fff" stroke-width="3"/>
+    </g>
+    <text x="1360" y="195" class="label" style="font-size: 30px;">Streamlit • SnowSight</text>
+    <text x="1360" y="220" class="label" style="font-size: 15px;">BI dashboard • DAC</text>
+    <text x="1360" y="243" class="label" style="font-size: 15px;">self-serve apps</text>
+  </g>
+
+  <!-- AI LANE -->
+  <g>
+    <path d="M140 350 H1460" class="dashed"/>
+    <text x="30" y="380" class="caption">AI LANE - THREE CAPABILITIES</text>
+    <text x="380" y="380" class="tiny">OpenAI • GPT-4o mini • text-embedding-3-small</text>
+
+    <g>
+      <rect x="26" y="395" width="1520" height="210" rx="12" fill="#f8fbff" stroke="#a7c4ff" stroke-width="1.4"/>
+
+      <g>
+        <circle cx="75" cy="475" r="18" fill="#2f4dff"/>
+        <text x="65" y="481" class="label" style="font-size: 20px;">1</text>
+        <text x="110" y="470" class="body" style="font-size: 20px; font-weight:700;">LLM ENRICHMENT</text>
+        <text x="110" y="490" class="subtitle">LLM as a transform step</text>
+
+        <rect x="330" y="440" width="120" height="58" rx="8" class="step"/>
+        <text x="370" y="475" class="body">stg_reviews</text>
+        <path d="M450 470 H520" class="light-arrow"/>
+
+        <rect x="520" y="440" width="140" height="58" rx="8" class="step"/>
+        <text x="548" y="475" class="body">enrich_summary</text>
+
+        <path d="M660 470 H720" class="light-arrow"/>
+        <rect x="720" y="440" width="175" height="58" rx="8" class="step"/>
+        <text x="758" y="475" class="body">AI_REVIEW_ENRICHED</text>
+        <path d="M895 470 H955" class="light-arrow"/>
+        <rect x="955" y="440" width="175" height="58" rx="8" class="step"/>
+        <text x="990" y="475" class="body">mart_review_insights</text>
+      </g>
+
+      <g>
+        <circle cx="75" cy="575" r="18" fill="#2f4dff"/>
+        <text x="65" y="581" class="label" style="font-size: 20px;">2</text>
+        <text x="110" y="570" class="body" style="font-size: 20px; font-weight:700;">RAG</text>
+        <text x="110" y="590" class="subtitle">chat with your reviews</text>
+
+        <rect x="330" y="540" width="120" height="58" rx="8" class="step"/>
+        <text x="380" y="575" class="body">reviews</text>
+        <path d="M450 570 H520" class="light-arrow"/>
+
+        <rect x="520" y="540" width="150" height="58" rx="8" class="step"/>
+        <text x="557" y="575" class="body">embed → vectors</text>
+        <path d="M670 570 H725" class="light-arrow"/>
+
+        <rect x="725" y="540" width="180" height="58" rx="8" class="step"/>
+        <text x="770" y="575" class="body">vector_store</text>
+        <path d="M905 570 H965" class="light-arrow"/>
+
+        <rect x="965" y="540" width="200" height="58" rx="8" class="step"/>
+        <text x="1025" y="575" class="body">rag_chat.py</text>
+      </g>
+
+      <g>
+        <circle cx="75" cy="675" r="18" fill="#2f4dff"/>
+        <text x="65" y="681" class="label" style="font-size: 20px;">3</text>
+        <text x="110" y="670" class="body" style="font-size: 20px; font-weight:700;">TEXT-TO-SQL</text>
+        <text x="110" y="690" class="subtitle">chat with your warehouse</text>
+
+        <rect x="330" y="640" width="120" height="58" rx="8" class="step"/>
+        <text x="370" y="675" class="body">MARTS schema</text>
+        <path d="M450 670 H520" class="light-arrow"/>
+
+        <rect x="520" y="640" width="150" height="58" rx="8" class="step"/>
+        <text x="570" y="675" class="body">text_to_sql.py</text>
+        <path d="M670 670 H725" class="light-arrow"/>
+
+        <rect x="725" y="640" width="180" height="58" rx="8" class="step"/>
+        <text x="770" y="675" class="body">SELECT-only guard</text>
+        <path d="M905 670 H965" class="light-arrow"/>
+
+        <rect x="965" y="640" width="200" height="58" rx="8" class="step"/>
+        <text x="1038" y="675" class="body">run as DBT role</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ORCHESTRATION -->
+  <g>
+    <path d="M165 760 H1430" class="dashed"/>
+    <rect x="27" y="780" width="220" height="88" rx="10" class="orchestration"/>
+    <text x="52" y="820" class="caption">ORCHESTRATION</text>
+    <g transform="translate(60 835)">
+      <path d="M18 0 L42 0 L42 38 L18 38 Z" fill="none" stroke="#3d7bf6" stroke-width="2.5"/>
+      <path d="M18 9 L42 9 M18 30 L42 30" stroke="#3d7bf6" stroke-width="2.5"/>
+      <path d="M30 0 L30 38" stroke="#3d7bf6" stroke-width="2.5"/>
+    </g>
+    <text x="110" y="820" class="body" style="font-weight:700;">Apache Airflow</text>
+    <text x="110" y="845" class="tiny">DAGs (zomato_dag)</text>
+
+    <rect x="315" y="790" width="140" height="58" rx="8" class="step"/>
+    <text x="352" y="825" class="body">upload_raw</text>
+    <path d="M455 820 H520" class="arrow"/>
+
+    <rect x="520" y="790" width="150" height="58" rx="8" class="step"/>
+    <text x="560" y="825" class="body">dbt_build_core</text>
+    <path d="M670 820 H730" class="arrow"/>
+
+    <rect x="730" y="790" width="170" height="58" rx="8" class="step"/>
+    <text x="782" y="825" class="body">enrich_reviews</text>
+    <path d="M900 820 H960" class="arrow"/>
+
+    <rect x="960" y="790" width="170" height="58" rx="8" class="step"/>
+    <text x="1002" y="825" class="body">dbt_build_all</text>
+  </g>
+
+  <!-- TOOLS -->
+  <g>
+    <rect x="28" y="864" width="1540" height="58" rx="14" class="tool"/>
+    <text x="48" y="900" class="caption">FOUNDATION &amp; TOOLS</text>
+
+    <g transform="translate(310 875)">
+      <rect x="0" y="0" width="90" height="34" rx="8" class="tool"/>
+      <text x="19" y="22" class="body">Python</text>
+      <rect x="120" y="0" width="110" height="34" rx="8" class="tool"/>
+      <text x="150" y="22" class="body">Pandas</text>
+      <rect x="260" y="0" width="120" height="34" rx="8" class="tool"/>
+      <text x="290" y="22" class="body">Snowflake</text>
+      <rect x="410" y="0" width="110" height="34" rx="8" class="tool"/>
+      <text x="450" y="22" class="body">dbt</text>
+      <rect x="550" y="0" width="110" height="34" rx="8" class="tool"/>
+      <text x="585" y="22" class="body">OpenAI</text>
+      <rect x="690" y="0" width="120" height="34" rx="8" class="tool"/>
+      <text x="725" y="22" class="body">Streamlit</text>
+      <rect x="840" y="0" width="110" height="34" rx="8" class="tool"/>
+      <text x="875" y="22" class="body">Airflow</text>
+      <rect x="980" y="0" width="220" height="34" rx="8" class="tool"/>
+      <text x="1020" y="22" class="body">Security</text>
+      <rect x="1225" y="0" width="220" height="34" rx="8" class="tool"/>
+      <text x="1260" y="22" class="body">IAM + Network Policies</text>
+    </g>
+  </g>
+</svg>
