@@ -24,6 +24,10 @@ CREDS
 **/.env.*
 **/CREDS
 
+# ...but the templates must be tracked: the setup instructions copy them.
+!.env.example
+!**/.env.example
+
 # Build / generated output
 **/logs/
 **/target/
