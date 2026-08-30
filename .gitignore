@@ -24,6 +24,10 @@ CREDS
 **/.env.*
 **/CREDS
 
+# ...but the templates must stay tracked (the patterns above match them too)
+!.env.example
+!**/.env.example
+
 # Build / generated output
 **/logs/
 **/target/
